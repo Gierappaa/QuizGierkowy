@@ -3,9 +3,17 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { isEqual, union } from 'lodash';
 import gry from './listaGier.js';
+// import imgg from '../images/av_anna.png';
+
+
+const images = [
+  require('../img/tenor.gif'),
+  require('../img/ludzik.gif')
+];
+
 
 // axios.defaults.baseURL = 'http://localhost:9001/';
-axios.defaults.headers.post['Content-Type'] ='application/json';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
 
@@ -59,92 +67,93 @@ class App extends React.Component {
       dataAgeApi: [],
       // optionSelectType: []
     }
-  } 
+  }
 
-// https://jsonplaceholder.typicode.com/users
-componentDidMount(){
+  // https://jsonplaceholder.typicode.com/users
+  componentDidMount() {
     setTimeout(() => {
       axios({
         url: 'https://www.giantbomb.com/api/games/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json',
         method: 'GET',
-        format : 'json',
+        format: 'json',
       })
         .then(response => {
-            console.log(response.data);
-            // const zwrotka = response.data;
-            // this.setState({zwrotka})
+          console.log(response.data);
+          // const zwrotka = response.data;
+          // this.setState({zwrotka})
         })
         .catch(err => {
-            console.error(err);
+          console.error(err);
         });
-      }, 10)
+    }, 10)
 
-      setTimeout(() => {
-        axios({
-          url: 'https://www.giantbomb.com/api/game_ratings/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
-          method: 'GET',
-          format : 'json',
+    setTimeout(() => {
+      axios({
+        url: 'https://www.giantbomb.com/api/game_ratings/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
+        method: 'GET',
+        format: 'json',
+      })
+        .then(response => {
+          console.log("Segregacja względem wieku")
+          console.log(response.data);
+          const dataAgeApi = response.data.results;
+          this.setState({ dataAgeApi })
+
         })
-          .then(response => {
-            console.log("Segregacja względem wieku")
-              console.log(response.data);
-              const dataAgeApi = response.data.results;
-            this.setState({dataAgeApi})
-           
-          })
-          .catch(err => {
-              console.error(err);
-          });
-        }, 10)
+        .catch(err => {
+          console.error(err);
+        });
+    }, 10)
 
-        setTimeout(() => {
-          axios({
-            url: 'https://www.giantbomb.com/api/platforms/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
-            method: 'GET',
-            format : 'json',
-          })
-            .then(response => { 
-                console.log("Segregacja względem platformy")
-                console.log(response.data);
-             
-            })
-            .catch(err => {
-                console.error(err);
-            });
-          }, 10)
+    setTimeout(() => {
+      axios({
+        url: 'https://www.giantbomb.com/api/platforms/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
+        method: 'GET',
+        format: 'json',
+      })
+        .then(response => {
+          console.log("Segregacja względem platformy")
+          console.log(response.data);
 
-          setTimeout(() => {
-            axios({
-              url: 'https://www.giantbomb.com/api/themes/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
-              method: 'GET',
-              format : 'json',
-            })
-              .then(response => { 
-                  console.log("Segregacja względem tematyki")
-                  console.log(response.data);
-               
-              })
-              .catch(err => {
-                  console.error(err);
-              });
-            }, 10)
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }, 10)
 
-            setTimeout(() => {
-              axios({
-                url: 'https://www.giantbomb.com/api/locations/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
-                method: 'GET',
-                format : 'json',
-              })
-                .then(response => { 
-                    console.log("Segregacja względem locations")
-                    console.log(response.data);
-                 
-                })
-                .catch(err => {
-                    console.error(err);
-                });
-              }, 10)
-}
+    setTimeout(() => {
+      axios({
+        url: 'https://www.giantbomb.com/api/themes/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
+        method: 'GET',
+        format: 'json',
+      })
+        .then(response => {
+          console.log("Segregacja względem tematyki")
+          console.log(response.data);
+
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }, 10)
+
+    setTimeout(() => {
+      axios({
+        url: 'https://www.giantbomb.com/api/locations/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
+        method: 'GET',
+        format: 'json',
+      })
+        .then(response => {
+          console.log("Segregacja względem locations")
+          console.log(response.data);
+
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }, 10)
+
+  }
 
   //-------------------------------------------------------------------------------------przypisywanie do statów
 
@@ -212,7 +221,7 @@ componentDidMount(){
       <div hidden={this.state.nameHidden}>
         <h3>Wybierz swój wiek.</h3>
         <select style={{ background: "green" }} onChange={this.handleChangeAge} placeholder={"wiek"}>
-          <option display={true}>Ile latek</option>
+          <option>Ile latek</option>
           {dataAge}
         </select>
       </div>
@@ -221,7 +230,7 @@ componentDidMount(){
       <div hidden={this.state.typeHidden}>
         <h3>Wybierz typ gry w kórą chcesz zagrać.</h3>
         <select style={{ background: "red" }} onChange={this.handleChangeType} >
-          <option display={true}>Jaki typek</option>
+          <option>Jaki typek</option>
           {dataTypeWrite}
         </select> <br></br>
       </div>
@@ -241,7 +250,23 @@ componentDidMount(){
         <h3>{e.name}</h3>
         </div>
       })}  */}
+      <div style={{ height: "250px", width: "500px", backgroundColor: "black", backgroundImage: `url(${images[0]})` }}>
+      </div>
+      <div style={{ height: "250px", width: "500px", backgroundColor: "black", backgroundImage: `url(${images[1]})` }}>
+      </div>
+      {/* <div style={{ height: "1000px", width: "1000px", backgroundColor: "black", backgroundImage: `url(${obrazki[0]})` }}>
+      </div> */}
 
+      {/* <div style={{ height: "1000px", width: "1000px" }}>
+        <img scr='{imgg}'></img>
+        <img scr={images[0]}></img>
+      </div> */}
+
+
+      {/* <div style={{ height: "1000px", width: "1000px" }}>
+        <img scr='{imgg}'></img>
+        <img scr="url(${images[0]})"></img>
+      </div> */}
     </>
     )
   }
