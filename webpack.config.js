@@ -17,10 +17,16 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   devServer: {
+    allowedHosts: ['.giantbomb.com'],
     contentBase: path.join(__dirname, "dist"),
     compress: true,
     port: 9001,
-    historyApiFallback: true
+    historyApiFallback: true,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      'Access-Control-Allow-Headers': 'application/jsonp',
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+    }
   },
   module: {
     rules: [
@@ -67,5 +73,5 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({filename: "[name].css", chunkFilename: "[id].css"})
   ]
-}
+};
 

@@ -5,58 +5,69 @@ import { isEqual, union } from 'lodash';
 import gry from './listaGier.js';
 // import imgg from '../images/av_anna.png';
 
+import jsonp from 'jsonp';
+
 
 const images = [
   require('../img/tenor.gif'),
   require('../img/ludzik.gif')
 ];
 
-
-// axios.defaults.baseURL = 'http://localhost:9001/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-
 
 const gierki = gry.map((e, i) => {
-
   return <div key={i}>
     <h1>{e.title}</h1>
     <h2>{e.company}</h2>
     <p>{e.bio}</p>
     {/* <img src={images[i]} alt=""/> */}
   </div>
-})
+});
 
 //-------------------------------------------------------------------------------------sortowanie wieku
 
 const dataAgeNice = union(gry.map((e) => {
   return e.age
-})).sort((a, b) => a - b)
+})).sort((a, b) => a - b);
 
 // console.log(dataAgeNice);
 
 const dataAge = dataAgeNice.map((e, i) => {
   return <option key={i}>{e}</option>
-})
+});
 //-------------------------------------------------------------------------------------sortowanie typu gry
 
 
 const dataType = union(gry.map((e) => {
   return e.type
-})).sort()
+})).sort();
 
 // console.log(dataType);
 
 const dataTypeWrite = dataType.map((e, i) => {
   return <option key={i}>{e}</option>
-})
+});
 
+function getJsonpData(url) {
+  return new Promise((resolve, reject) => jsonp(url, {
+    param: 'json_callback'
+  }, (err, data) => {
+    console.log(err);
+    console.log(data);
+
+    if (err) {
+      return reject(err);
+    }
+
+    return resolve(data);
+  }))
+}
 
 //------------------------------------------------------------------------------------- Inicjacja Api
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       inputOption: "",
       inputOptionType: "",
@@ -72,11 +83,7 @@ class App extends React.Component {
   // https://jsonplaceholder.typicode.com/users
   componentDidMount() {
     setTimeout(() => {
-      axios({
-        url: 'https://www.giantbomb.com/api/games/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json',
-        method: 'GET',
-        format: 'json',
-      })
+      getJsonpData('https://www.giantbomb.com/api/games/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232')
         .then(response => {
           console.log(response.data);
           // const zwrotka = response.data;
@@ -85,16 +92,12 @@ class App extends React.Component {
         .catch(err => {
           console.error(err);
         });
-    }, 10)
+    }, 10);
 
     setTimeout(() => {
-      axios({
-        url: 'https://www.giantbomb.com/api/game_ratings/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
-        method: 'GET',
-        format: 'json',
-      })
+      getJsonpData('https://www.giantbomb.com/api/game_ratings/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
         .then(response => {
-          console.log("Segregacja względem wieku")
+          console.log("Segregacja względem wieku");
           console.log(response.data);
           const dataAgeApi = response.data.results;
           this.setState({ dataAgeApi })
@@ -103,48 +106,36 @@ class App extends React.Component {
         .catch(err => {
           console.error(err);
         });
-    }, 10)
+    }, 10);
 
     setTimeout(() => {
-      axios({
-        url: 'https://www.giantbomb.com/api/platforms/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
-        method: 'GET',
-        format: 'json',
-      })
+      getJsonpData('https://www.giantbomb.com/api/platforms/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
         .then(response => {
-          console.log("Segregacja względem platformy")
+          console.log("Segregacja względem platformy");
           console.log(response.data);
 
         })
         .catch(err => {
           console.error(err);
         });
-    }, 10)
+    }, 10);
 
     setTimeout(() => {
-      axios({
-        url: 'https://www.giantbomb.com/api/themes/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
-        method: 'GET',
-        format: 'json',
-      })
+      getJsonpData( 'https://www.giantbomb.com/api/themes/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
         .then(response => {
-          console.log("Segregacja względem tematyki")
+          console.log("Segregacja względem tematyki");
           console.log(response.data);
 
         })
         .catch(err => {
           console.error(err);
         });
-    }, 10)
+    }, 10);
 
     setTimeout(() => {
-      axios({
-        url: 'https://www.giantbomb.com/api/locations/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
-        method: 'GET',
-        format: 'json',
-      })
+      getJsonpData('https://www.giantbomb.com/api/locations/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
         .then(response => {
-          console.log("Segregacja względem locations")
+          console.log("Segregacja względem locations");
           console.log(response.data);
 
         })
@@ -162,9 +153,9 @@ class App extends React.Component {
       inputOption: e.currentTarget.value,
       nameHidden: true,
       typeHidden: false
-    })
+    });
     console.log("twój wiek: " + e.currentTarget.value)
-  }
+  };
 
 
 
@@ -172,9 +163,9 @@ class App extends React.Component {
     this.setState({
       inputOptionType: e.currentTarget.value,
       typeHidden: true
-    })
+    });
     console.log("twój typ gry: " + e.currentTarget.value)
-  }
+  };
 
   componentDidUpdate() {
     let newInputOption = this.state.inputOption;
@@ -186,7 +177,7 @@ class App extends React.Component {
     const newGames = gry.filter((e, i) => {
       // console.log(e, e.inputOptionType);
       return e.age == newInputOption && e.type === newInputOptionType
-    })
+    });
     if (!isEqual(this.state.finalChoice, newGames)) {
       this.setState({
         finalChoice: newGames
