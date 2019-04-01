@@ -11,7 +11,7 @@ module.exports = [
         title   : 'Fifa 98',
         company    : 'EA',
         type : 'Sport',
-        bio     : 'dadsadas.',
+        bio     : 'mozna pokopać.',
         avatar  : '',
         age : 3        
     },
@@ -35,7 +35,7 @@ module.exports = [
         title   : 'Tetris',
         company    : 'Makumba',
         type : 'Logic',
-        bio     : 'dadsadas.',
+        bio     : 'klocki.',
         avatar  : '',
         age : 3        
     },

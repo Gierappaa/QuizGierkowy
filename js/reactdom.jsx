@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { isEqual, union } from 'lodash';
 import gry from './listaGier.js';
-// import imgg from '../images/av_anna.png';
 
 
 const images = [
@@ -12,7 +11,7 @@ const images = [
 ];
 
 
-// axios.defaults.baseURL = 'http://localhost:9001/';
+axios.defaults.baseURL = 'http://localhost:9001/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
@@ -230,7 +229,7 @@ class App extends React.Component {
       <div hidden={this.state.typeHidden}>
         <h3>Wybierz typ gry w kórą chcesz zagrać.</h3>
         <select style={{ background: "red" }} onChange={this.handleChangeType} >
-          <option>Jaki typek</option>
+          <option>Jaki typ</option>
           {dataTypeWrite}
         </select> <br></br>
       </div>
