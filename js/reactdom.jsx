@@ -129,7 +129,7 @@ class App extends React.Component {
     }, 10);
 
     setTimeout(() => {
-      getJsonpData('https://www.giantbomb.com/api/search/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&resources=game')
+      getJsonpData('https://www.giantbomb.com/api/search/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&query="Fallout"')
         .then(response => {
           // console.log("Segregacja względem types");
           console.log(response);
