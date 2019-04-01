@@ -11,7 +11,7 @@ const images = [
 ];
 
 
-axios.defaults.baseURL = 'http://localhost:9001/';
+axios.defaults.baseURL = 'localhost:9001';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 
@@ -91,6 +91,7 @@ class App extends React.Component {
         url: 'https://www.giantbomb.com/api/game_ratings/?api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&format=json&field_list=name',
         method: 'GET',
         format: 'json',
+        crossdomain: true,
       })
         .then(response => {
           console.log("Segregacja względem wieku")
