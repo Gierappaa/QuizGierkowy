@@ -103,9 +103,6 @@ class App extends React.Component {
 
 
 
-
-
-
     setTimeout(() => {
       getJsonpData('https://www.giantbomb.com/api/platforms/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
         .then(response => {
