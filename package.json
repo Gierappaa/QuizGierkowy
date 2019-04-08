@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "./node_modules/.bin/webpack",
-    "dev": "./node_modules/.bin/webpack-dev-server --inline --hot --open"
+    "dev": "./node_modules/.bin/webpack-dev-server --inline --hot --open --"
   },
   "browserslist": [
     "> 1%",
@@ -47,6 +47,7 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
+    "jsonp": "^0.2.1",
     "react-twitter-share-link": "^1.2.0"
   }
 }
