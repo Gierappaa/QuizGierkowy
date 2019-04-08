@@ -4,6 +4,8 @@ import { isEqual, union } from 'lodash';
 import gry from './listaGier.js';
 import jsonp from 'jsonp';
 
+
+
 const images = [
   require('../img/tenor.gif'),
   require('../img/ludzik.gif')
@@ -99,13 +101,6 @@ class App extends React.Component {
     }, 10);
 
 
-
-
-
-
-
-
-
     setTimeout(() => {
       getJsonpData('https://www.giantbomb.com/api/platforms/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
         .then(response => {
@@ -187,6 +182,9 @@ class App extends React.Component {
 
     return (<>
 
+
+
+
       <p><strong>dobrze ze jestes</strong></p>
 
       <div hidden={this.state.nameHidden}>
@@ -222,10 +220,16 @@ class App extends React.Component {
         </div>
       })}
 
-      <div style={{ height: "250px", width: "500px", backgroundColor: "black", backgroundImage: `url(${images[0]})` }}>
+      {/* <div style={{ height: "250px", width: "500px", backgroundColor: "black", backgroundImage: `url(${images[0]})` }}>
       </div>
       <div style={{ height: "250px", width: "500px", backgroundColor: "black", backgroundImage: `url(${images[1]})` }}>
-      </div>
+      </div> */}
+
+
+      {/* ---------------------------------------------------------------moje pierwsze podejscie do operowania na firebase */}
+    <h1>tutaj zaczyna sie to co jest w bazie danych</h1>
+    <input id="daneWejsciowe" type="text"/>
+    
     </>
     )
   }
