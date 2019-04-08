@@ -175,7 +175,9 @@ class App extends React.Component {
     console.log(this.state.finalChoice);
   }
 
-
+  handleChangeTextData(){
+    
+  }
 
 
   render() {
@@ -228,7 +230,8 @@ class App extends React.Component {
 
       {/* ---------------------------------------------------------------moje pierwsze podejscie do operowania na firebase */}
     <h1>tutaj zaczyna sie to co jest w bazie danych</h1>
-    <input id="daneWejsciowe" type="text"/>
+    <input id="inputData" type="text"/>
+    <button id="saveButton" onClick={this.handleChangeTextData}>Save</button>
     
     </>
     )
