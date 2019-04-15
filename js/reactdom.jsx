@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { isEqual, union } from 'lodash';
 import gry from './listaGier.js';
 import jsonp from 'jsonp';
+import { GetData } from './../components/getData/getData.jsx';
 
 
 
@@ -69,78 +70,81 @@ class App extends React.Component {
       finalChoice: [],
       dataAgeApi: [],
       apiResp: [],
+      intervalCounter: 0,
     }
   }
 
 
 
   // https://jsonplaceholder.typicode.com/users
-  componentDidMount() {
-    setTimeout(() => {
-      getJsonpData('https://www.giantbomb.com/api/games/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232')
-        .then(response => {
-          // console.log(response.data);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    }, 10);
+  // componentDidMount() {
 
-    setTimeout(() => {
-      getJsonpData('https://www.giantbomb.com/api/game_ratings/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
-        .then(response => {
-          // console.log("Segregacja względem wieku");
-          // console.log(response.results);
-          const respAgeApi = response.results;
-          // console.log("wyniki wieku: " + respAgeApi)
-          this.setState({ apiResp: respAgeApi })
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    }, 10);
+  //   // setInterval(() => {
+  //   //   getJsonpData('https://www.giantbomb.com/api/games/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&limit=99&offset=3')
+  //   //     .then(response => {
+  //   //       console.log("gierki w pelnym wymiarze");
+  //   //       console.log(response.data);
+  //   //     })
+  //   //     .catch(err => {
+  //   //       console.error(err);
+  //   //     });
+  //   // }, 10000);
 
-
-    setTimeout(() => {
-      getJsonpData('https://www.giantbomb.com/api/platforms/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
-        .then(response => {
-          // console.log("Segregacja względem platformy" );
-          // console.log(response.data);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    }, 10);
-
-    setTimeout(() => {
-      getJsonpData('https://www.giantbomb.com/api/themes/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
-        .then(response => {
-          // console.log("Segregacja względem tematyki");
-          // console.log(response.data);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    }, 10);
-
-    setTimeout(() => {
-      getJsonpData('https://www.giantbomb.com/api/search/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&query="Fallout"')
-        .then(response => {
-          // console.log("Segregacja względem types");
-          console.log(response);
-        })
-        .catch(err => {
-          console.error(err);
-        });
-    }, 10)
+  //   setTimeout(() => {
+  //     getJsonpData('https://www.giantbomb.com/api/game_ratings/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
+  //       .then(response => {
+  //         // console.log("Segregacja względem wieku");
+  //         // console.log(response.results);
+  //         const respAgeApi = response.results;
+  //         // console.log("wyniki wieku: " + respAgeApi)
+  //         this.setState({ apiResp: respAgeApi })
+  //       })
+  //       .catch(err => {
+  //         console.error(err);
+  //       });
+  //   }, 10);
 
 
-    const childrenAgeApi = this.state.dataAgeApi.filter(function (el) {
-      return el.name == "ESRB: T";
-    });
-    // console.log(this.state.dataAgeApi + "tooooooooooooooooo")
+  //   setTimeout(() => {
+  //     getJsonpData('https://www.giantbomb.com/api/platforms/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
+  //       .then(response => {
+  //         // console.log("Segregacja względem platformy" );
+  //         // console.log(response.data);
+  //       })
+  //       .catch(err => {
+  //         console.error(err);
+  //       });
+  //   }, 10);
 
-  }
+  //   setTimeout(() => {
+  //     getJsonpData('https://www.giantbomb.com/api/themes/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&field_list=name')
+  //       .then(response => {
+  //         // console.log("Segregacja względem tematyki");
+  //         // console.log(response.data);
+  //       })
+  //       .catch(err => {
+  //         console.error(err);
+  //       });
+  //   }, 10);
+
+  //   setTimeout(() => {
+  //     getJsonpData('https://www.giantbomb.com/api/search/?format=jsonp&api_key=564595a22fe0a85a71f47b1e8a6644fc66e80232&query="Fallout"')
+  //       .then(response => {
+  //         // console.log("Segregacja względem types");
+  //         console.log(response);
+  //       })
+  //       .catch(err => {
+  //         console.error(err);
+  //       });
+  //   }, 10)
+
+
+  //   const childrenAgeApi = this.state.dataAgeApi.filter(function (el) {
+  //     return el.name == "ESRB: T";
+  //   });
+  //   // console.log(this.state.dataAgeApi + "tooooooooooooooooo")
+
+  // }
 
   //-------------------------------------------------------------------------------------przypisywanie do statów
 
@@ -175,8 +179,8 @@ class App extends React.Component {
     console.log(this.state.finalChoice);
   }
 
-  handleChangeTextData(){
-    
+  handleChangeTextData() {
+
   }
 
 
@@ -222,17 +226,17 @@ class App extends React.Component {
         </div>
       })}
 
-      {/* <div style={{ height: "250px", width: "500px", backgroundColor: "black", backgroundImage: `url(${images[0]})` }}>
+      <div style={{ height: "250px", width: "500px", backgroundColor: "black", backgroundImage: `url(${images[0]})` }}>
       </div>
       <div style={{ height: "250px", width: "500px", backgroundColor: "black", backgroundImage: `url(${images[1]})` }}>
-      </div> */}
+      </div>
 
 
       {/* ---------------------------------------------------------------moje pierwsze podejscie do operowania na firebase */}
-    <h1>tutaj zaczyna sie to co jest w bazie danych</h1>
-    <input id="inputData" type="text"/>
-    <button id="saveButton" onClick={this.handleChangeTextData}>Save</button>
-    
+      <h1>tutaj zaczyna sie to co jest w bazie danych</h1>
+      <input id="inputData" type="text" />
+      <button id="saveButton" onClick={this.handleChangeTextData}>Save</button>
+      <h3>taki jest teraz interwał : {this.state.intervalCounter}</h3>
     </>
     )
   }
@@ -243,6 +247,7 @@ class App extends React.Component {
 document.addEventListener('DOMContentLoaded', function () {
   ReactDOM.render(
     <div>
+      <GetData />
       <App />
       {/* {gierki} */}
     </div>,

@@ -20,7 +20,7 @@ module.exports = {
     allowedHosts: ['.giantbomb.com'],
     contentBase: path.join(__dirname, "dist"),
     compress: true,
-    port: 9001,
+    port: 9000,
     historyApiFallback: true,
     headers: {
       "Access-Control-Allow-Origin": "*",
