@@ -1,10 +1,30 @@
-# QuizGierkowy
-Jest to projekt zrobienia aplikacji za pomocą webpacka i reakt'a.
+# GameQuiz
 
-Mój pomysł na aplikacje dzięki której będzie można wybrać sobie w jaka grę ma się w  danej chwili grać.
+This is my own project that i will build in free time
 
-Na obecnym etapie mam juz zaimplementowane api z listą gier ze wszystkich platform jakie do tej pory wyszly prawie 70tys. pozycji.
+## Made with:
 
-Teraz uczę się obsługi firebase'a aby można było w czasie rzeczywistym wyfiltrować grę wedlug własnych preferencji.
-Od strony wizualnej narazie niewiele się dzieję a kod jest  w stanie chaotycznym. Ciągle odkrywam nowe narzędzia i staram się w tym pojektcie je testować.
+* React
+* HTML
+* CSS
+* Api
+* Firebase
+
+### About
+
+I want to make an aplication that will help to chose what game user wants to play.
+At the moment I found API with data according to all games on all platforms(about 70k).
+
+I commented out big part of code just in case that few people at once will open the page.
+I have limited(it's free) request per hour for the API.
+
+### To do
+* at the moment i must learn how to put the data from API to Firebase
+* then create a good form
+* then create  a nice landing page
+
+### To start-up
+Download repository and then type in comand line:
+* yarn install
+* yarn dev
 
